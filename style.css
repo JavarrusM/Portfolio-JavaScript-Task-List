@@ -1,9 +1,13 @@
 .card-action {
-   transition: opacity 1s, height 5s;
+  transition: opacity 1s, height 5s, padding 1s;
 }
 
 .hidden {
   opacity: 0;
   height: 0;
+  padding: 0;
 }
 
+.delete-item {
+  margin-right: 0 !important;
+}
