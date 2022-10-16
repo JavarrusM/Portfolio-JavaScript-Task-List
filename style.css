@@ -1,0 +1,9 @@
+.card-action {
+   transition: opacity 1s, height 5s;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+}
+
