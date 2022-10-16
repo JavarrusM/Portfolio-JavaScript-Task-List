@@ -2,8 +2,9 @@
 const form = document.querySelector("#task-form");
 const taskList = document.querySelector(".collection");
 const taskInput = document.querySelector("#task");
+const cardAction = document.querySelector(".card-action");
 
-if (!taskList.childElementCount) taskList.style.visibility = "hidden";
+if (!taskList.childElementCount) cardAction.classList.add("hidden");
 
 // LOAD ALL EVENT LISTENERS:
 loadEventListeners();
@@ -24,7 +25,7 @@ function addTask(e) {
     return;
   }
 
-  taskList.style.visibility = "visible";
+  cardAction.classList.remove("hidden");
 
   // CREATE LI ELEMENT:
   const li = document.createElement("li");
@@ -60,7 +61,6 @@ function deleteTask(e) {
   }
 
   if (!taskList.childElementCount) {
-    console.log("CHECK");
-    taskList.style.visibility = "hidden";
+    cardAction.classList.add("hidden");
   }
 }
