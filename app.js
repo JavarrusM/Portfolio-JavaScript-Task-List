@@ -3,6 +3,8 @@ const form = document.querySelector("#task-form");
 const taskList = document.querySelector(".collection");
 const taskInput = document.querySelector("#task");
 
+if (!taskList.childElementCount) taskList.style.visibility = "hidden";
+
 // LOAD ALL EVENT LISTENERS:
 loadEventListeners();
 
@@ -21,6 +23,8 @@ function addTask(e) {
     alert("Please add a task!");
     return;
   }
+
+  taskList.style.visibility = "visible";
 
   // CREATE LI ELEMENT:
   const li = document.createElement("li");
@@ -53,5 +57,10 @@ function deleteTask(e) {
   // IF THE TARGET ELEMENT CONTAINS THE DELETE CLASS DELETE THE LIST ITEM:
   if (target.classList.contains("delete")) {
     target.parentElement.parentElement.remove();
+  }
+
+  if (!taskList.childElementCount) {
+    console.log("CHECK");
+    taskList.style.visibility = "hidden";
   }
 }
