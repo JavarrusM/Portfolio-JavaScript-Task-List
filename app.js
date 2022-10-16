@@ -10,6 +10,7 @@ loadEventListeners();
 function loadEventListeners() {
   // ADD TASK EVENT
   form.addEventListener("submit", addTask);
+  taskList.addEventListener("click", deleteTask);
 }
 
 // ADD TASK FUNCTION:
@@ -17,7 +18,7 @@ function addTask(e) {
   e.preventDefault();
 
   if (taskInput.value === "") {
-    alert("Add task");
+    alert("Please add a task!");
     return;
   }
 
@@ -34,12 +35,23 @@ function addTask(e) {
   // ADD CLASS
   link.className = "delete-item secondary-content";
   // ADD ICON HTML:
-  link.innerHTML = '<i class="material-icons red-text">remove_circle</i>';
+  link.innerHTML =
+    '<i class="material-icons red-text delete">remove_circle</i>';
   // APPEND LINK TO LIST:
   li.appendChild(link);
   // APPEND LIST ITEM TO UL:
   taskList.appendChild(li);
 
   // CLEAR INPUT
-  taskInput.value = '';
+  taskInput.value = "";
+}
+
+// DELETE CLASS FUNCTIONALITY:
+function deleteTask(e) {
+  // SET TARGET:
+  let target = e.target;
+  // IF THE TARGET ELEMENT CONTAINS THE DELETE CLASS DELETE THE LIST ITEM:
+  if (target.classList.contains("delete")) {
+    target.parentElement.parentElement.remove();
+  }
 }
