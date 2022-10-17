@@ -3,6 +3,7 @@ const form = document.querySelector("#task-form");
 const taskList = document.querySelector(".collection");
 const taskInput = document.querySelector("#task");
 const cardAction = document.querySelector(".card-action");
+const clearBtn = document.querySelector(".clear-tasks");
 
 if (!taskList.childElementCount) cardAction.classList.add("hidden");
 
@@ -11,9 +12,12 @@ loadEventListeners();
 
 // INITIALIZE LOAD EVENT LISTENERS FUNCTION:
 function loadEventListeners() {
-  // ADD TASK EVENT
+  // ADD TASK EVENT:
   form.addEventListener("submit", addTask);
+  // DELETE TASK EVENT:
   taskList.addEventListener("click", deleteTask);
+  // CLEAR TASKS EVENT:
+  clearBtn.addEventListener("click", clearTasks);
 }
 
 // ADD TASK FUNCTION:
@@ -51,7 +55,7 @@ function addTask(e) {
   taskInput.value = "";
 }
 
-// DELETE CLASS FUNCTIONALITY:
+// DELETE TASK FUNCTIONALITY:
 function deleteTask(e) {
   // SET TARGET:
   let target = e.target;
@@ -63,4 +67,13 @@ function deleteTask(e) {
   if (!taskList.childElementCount) {
     cardAction.classList.add("hidden");
   }
+}
+
+// CLEAR ALL TASKS FUNCTIONALITY:
+function clearTasks() {
+  while (taskList.children.length) {
+    taskList.children[0].remove();
+  }
+
+  cardAction.classList.add("hidden");
 }
