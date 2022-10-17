@@ -5,8 +5,6 @@ const taskInput = document.querySelector("#task");
 const cardAction = document.querySelector(".card-action");
 const clearBtn = document.querySelector(".clear-tasks");
 
-if (!taskList.childElementCount) cardAction.classList.add("hidden");
-
 // LOAD ALL EVENT LISTENERS:
 loadEventListeners();
 
@@ -29,12 +27,12 @@ function addTask(e) {
     return;
   }
 
-  cardAction.classList.remove("hidden");
+  filterAnimation(false);
 
   // CREATE LI ELEMENT:
   const li = document.createElement("li");
   // ADD CLASS:
-  li.className = "collection-item";
+  li.className = "collection-item scale-transition";
   // CREATE TEXT NODE:
   const liText = document.createTextNode(taskInput.value);
   // APPEND TO LIST ITEM:
@@ -61,11 +59,13 @@ function deleteTask(e) {
   let target = e.target;
   // IF THE TARGET ELEMENT CONTAINS THE DELETE CLASS DELETE THE LIST ITEM:
   if (target.classList.contains("delete")) {
-    target.parentElement.parentElement.remove();
-  }
-
-  if (!taskList.childElementCount) {
-    cardAction.classList.add("hidden");
+    target.parentElement.parentElement.classList.add("scale-out");
+    setTimeout(() => {
+      target.parentElement.parentElement.remove();
+      if (!taskList.childElementCount) {
+        filterAnimation(true);
+      }
+    }, 500);
   }
 }
 
@@ -75,5 +75,22 @@ function clearTasks() {
     taskList.children[0].remove();
   }
 
-  cardAction.classList.add("hidden");
+  filterAnimation(true);
+}
+
+// FILTER ANAMATION TRANSITION:
+function filterAnimation(remove) {
+  if (!remove) {
+    // ADDING FILTER AND TASK CARD:
+    cardAction.classList.remove("hidden");
+    setTimeout(() => {
+      cardAction.classList.add("scale-in");
+    }, 100);
+  } else {
+    // REMOVING FILTER AND TASK CARD:
+    cardAction.classList.remove("scale-in");
+    setTimeout(() => {
+      cardAction.classList.add("hidden");
+    }, 100);
+  }
 }
